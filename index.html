@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
     </head>
@@ -21,7 +22,7 @@
         </div>
         
         <div id="Portfolio" class="tabcontent">
-            <div class="porfolio-wrap">
+            <div id="porfolio-wrap" class="porfolio-wrap">
                 <div class="section-project">
                     <h2>Project Title</h2>
                     <p>Project Description Goes Here</p>
@@ -124,7 +125,8 @@
         <div id="Resume" class="tabcontent">
             <iframe id="full-screen-me" src="assets/pdf/viralcv.pdf"  style="overflow:hidden;height:100%;width:100%" height="100%" width="100%" frameborder="0" wmode="transparent"></iframe>
         </div>
-        
+
+        <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
         <script type="text/javascript" src="assets/js/script.js"></script>
         <script language="javascript">
             // Get the element with id="defaultOpen" and click on it
@@ -135,6 +137,60 @@
             }
             window.onresize = autoResizeDiv;
             autoResizeDiv();
+
+            function loadJSON(callback) {   
+                var xobj = new XMLHttpRequest();
+                xobj.overrideMimeType("application/json");
+                xobj.open('GET', 'assets/data/projects.json', true);
+                xobj.onreadystatechange = function () {
+                    if (xobj.readyState == 4 && xobj.status == "200") {
+                        
+                        callback(xobj.responseText);
+                    }
+                };
+                xobj.send(null);  
+            }
+
+            loadJSON(function(json) {
+                console.log("Loaded json" + json); 
+                var data = JSON.parse(json);
+                console.log("Data::" + data);
+                console.log("length::"+ data.length)
+
+                var htmlText = '';
+
+                for(var d in data) {
+                    var key = data[d];
+                    console.log(key); 
+                    htmlText += '<div class="section-project">';
+                    htmlText += '<h2>'+key.Name+'</h2>';
+                    htmlText += '<p>'+key.Description+'</p>';
+                    htmlText += '<ul>';
+                    if(key.iOS != '') {    
+                        htmlText += '<li>'; 
+                        htmlText += '<a href="'+key.iOS+'" target="_blank" title="'+key.Name+'">';
+                        htmlText += '<img src="assets/images/iOS.png" alt="iStore" class="store-img" />';
+                        htmlText += '</a>';
+                        htmlText += '</li>';  
+                    } 
+                    if(key.Android != '') { 
+                        htmlText += '<li>'; 
+                        htmlText += '<a href="'+key.Android+'" target="_blank" title="'+key.Name+'">';
+                        htmlText += '<img src="assets/images/android.png" alt="iStore" class="store-img" />';
+                        htmlText += '</a>';
+                        htmlText += '</li>'; 
+                    } 
+                    if(key.Android == '' && key.iOS == '') { 
+                        htmlText += '<li>'; 
+                        htmlText += '<p>Enterprise Release</p>';
+                        htmlText += '</li>'; 
+                    }   
+                    htmlText += '</ul>';
+                    htmlText += '</div>';
+                }
+
+                $('#porfolio-wrap').html(htmlText);
+            });
         </script>
     </body>
 </html>

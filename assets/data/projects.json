@@ -1,0 +1,58 @@
+[
+        {
+            "Name": "Cosec APTA",
+            "Description": "Time and attendance Application",
+            "Modules": "Test",
+            "iOS": "https://itunes.apple.com/in/app/cosec-apta/id978241784?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrix.essapp&hl=en_IN"
+        },
+        {
+            "Name": "Satatya Vision",
+            "Description": "Video surveillance app",
+            "Modules": "Test",
+            "iOS": "https://itunes.apple.com/in/app/satatya-vision/id1046426806?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrixcomsec.android.satatyasight&hl=en_IN"
+        },
+        {
+            "Name": "Satatya Sight",
+            "Description": "Video surveillance app",
+            "Modules": "Same as Satatya Vision app, Connect with HVR, NVR and DVR",
+            "iOS": "https://itunes.apple.com/in/app/satatya-sight/id570155344?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrix.satatyamv&hl=en_IN"
+        },
+        {
+            "Name": "Bio-metric Attendance",
+            "Description": "Enrollment app",
+            "Modules": "Test",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "FoodZee",
+            "Description": "Online food order",
+            "Modules": "Restaurant food ordering and table reservation, payment using Paypal, social sharing, and find location of the restaurant. User can order food online and make payment through PayPal, Able to see order history",
+            "iOS": "https://itunes.apple.com/za/app/foodzee/id899556359?mt=8",
+            "Android": ""
+        },
+        {
+            "Name": "iFirst",
+            "Description": "Utility Application for Chat",
+            "Modules": "App provides individual and group and mobile recharge. Also integrate with video advertising using Firebase database for one to one and one to many chat, paypal for payment and video advertise",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "COHC",
+            "Description": "Golf club application. ",
+            "Modules": "Maintain golf club membership details and Transaction. Daily points add and take transactions, SQLite and enterprise release",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "COHC",
+            "Description": "Banking sector app, Lead management",
+            "Modules": "Lead management systems. Lead Edit, Close, Reschedule, Document updating etc",
+            "iOS": "",
+            "Android": ""
+        }
+]

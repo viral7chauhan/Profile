@@ -1,0 +1,69 @@
+[
+        {
+            "Name": "Cosec APTA",
+            "Description": "Time and attendance Application",
+            "Modules": "It is communicate with COSEC Server who purchase Cosec license. Made for Employees to monitoring its Attendance and day-to-day activity. Also Group In-charge for self as well as Group attendance details. 
+            Its provide Daily Attendance, Monthly Summary, Punch details, Group Leader Modules, Mark Punch through app, Profile details, Cafeteria and its transaction, Leave, C-off, Tour, Attendance correction management. 
+            Utilities: QR Code for Open Door, Auto Attendance Punch, Activity Tracker for Group In-charge and Leave Approval and Authorization.    
+            Backend: File system storage which Expiration time and Last updated time for better experience when open application 
+            UI: Nested Pagination for Interactive UI and swipe transition. ",
+            "iOS": "https://itunes.apple.com/in/app/cosec-apta/id978241784?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrix.essapp&hl=en_IN"
+        },
+        {
+            "Name": "Satatya Vision",
+            "Description": "Video surveillance app",
+            "Modules": "SATATYA VISION you can enrich security, detect suspicious events and ensure the site’s safety by remotely monitoring live stream from IP Cameras connected to MATRIX SATATYA SAMAS. Live View of 256 cameras connected to Multiple Recording Servers 
+            Its Support IP and Analog camera. 
+            Remote Playback. Create, Edit and Delete My Views. Change Camera Stream Type. Camera Sequencing. Search Cameras. Remote pan-tilt-zoom Control 
+            Both Landscape and Portrait view supported. 
+            TCP communication. 
+            Use FFMpeg for decode video and audio stream 
+            OpenGL For iOS and Surface View for Android ",
+            "iOS": "https://itunes.apple.com/in/app/satatya-vision/id1046426806?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrixcomsec.android.satatyasight&hl=en_IN"
+        },
+        {
+            "Name": "Satatya Sight",
+            "Description": "Video surveillance app",
+            "Modules": "Same as Satatya Vision app, Connect with HVR, NVR and DVR",
+            "iOS": "https://itunes.apple.com/in/app/satatya-sight/id570155344?mt=8",
+            "Android": "https://play.google.com/store/apps/details?id=com.matrix.satatyamv&hl=en_IN"
+        },
+        {
+            "Name": "Bio-metric Attendance",
+            "Description": "Enrollment app",
+            "Modules": "Student enroll him-self using bio-matric device. Store attendance details according to branch, time, region wise. Admin can View attendance information and see the reports, Use Secugen Bio-matric device and SDK for Bio-Templete. 
+            Tablet application with landscape mode Report generation according to requirement",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "FoodZee",
+            "Description": "Online food order",
+            "Modules": "Restaurant food ordering and table reservation, payment using Paypal, social sharing, and find location of the restaurant. User can order food online and make payment through PayPal, Able to see order history",
+            "iOS": "https://itunes.apple.com/za/app/foodzee/id899556359?mt=8",
+            "Android": ""
+        },
+        {
+            "Name": "iFirst",
+            "Description": "Utility Application for Chat",
+            "Modules": "App provides individual and group and mobile recharge. Also integrate with video advertising using Firebase database for one to one and one to many chat, paypal for payment and video advertise",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "COHC",
+            "Description": "Golf club application. ",
+            "Modules": "Maintain golf club membership details and Transaction. Daily points add and take transactions, SQLite and enterprise release",
+            "iOS": "",
+            "Android": ""
+        },
+        {
+            "Name": "COHC",
+            "Description": "Banking sector app, Lead management",
+            "Modules": "Lead management systems. Lead Edit, Close, Reschedule, Document updating etc",
+            "iOS": "",
+            "Android": ""
+        }
+]
