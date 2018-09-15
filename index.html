@@ -1,6 +1,43 @@
+<!DOCTYPE html>
 <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
     <body>
-        <p> HI, I am Viral Chauhan </p>
-        <a href="https://drive.google.com/file/d/1wUHqSA7NuDfkwf7Q9FtVJc6ucdLeE0U7/view?usp=sharing">See my complete profile</a>
+        <!-- <p> HI, I am Viral Chauhan </p>
+        <a href="https://drive.google.com/file/d/1wUHqSA7NuDfkwf7Q9FtVJc6ucdLeE0U7/view?usp=sharing">See my complete profile</a> -->
+
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'Summary')" id="defaultOpen">Summary</button>
+            <button class="tablinks" onclick="openCity(event, 'Projects')">Projects</button>
+            <button class="tablinks" onclick="openCity(event, 'Resume')">Resume</button>
+        </div>
+        
+        <!-- Tab content -->
+        <div id="Summary" class="tabcontent">
+            <p>Summary text goes here...</p>
+        </div>
+        
+        <div id="Projects" class="tabcontent">
+            <p>Projects text goes here...</p>
+        </div>
+        
+        <div id="Resume" class="tabcontent">
+            <iframe id="full-screen-me" src="viralcv.pdf"  style="overflow:hidden;height:100%;width:100%" height="100%" width="100%" frameborder="0" wmode="transparent"></iframe>
+        </div>
+        
+        <script type="text/javascript" src="script.js"></script>
+        <script language="javascript">
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+            function autoResizeDiv()
+            {
+                document.getElementById('full-screen-me').style.height = window.innerHeight +'px';
+            }
+            window.onresize = autoResizeDiv;
+            autoResizeDiv();
+        </script>
     </body>
 </html>
