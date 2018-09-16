@@ -49,7 +49,7 @@
             "Android": ""
         },
         {
-            "Name": "COHC",
+            "Name": "BankApp",
             "Description": "Banking sector app, Lead management",
             "Modules": "Lead management systems. Lead Edit, Close, Reschedule, Document updating etc",
             "iOS": "",
