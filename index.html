@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Viral Chauhan — iOS Tech Lead</title>
+  <style>
+    :root {
+      /* Core palette */
+      --navy:   #08101C;
+      --card:   #0F1C2E;
+      --card2:  #132035;
+      --border: #1A3050;
+      --muted:  #7A92B0;
+      --text:   #D8E6F5;
+      --white:  #FFFFFF;
+      --radius: 14px;
+      --gap:    24px;
+
+      /* Gradient stops */
+      --blue:   #2979FF;
+      --indigo: #7C4DFF;
+      --pink:   #E040FB;
+      --cyan:   #00BCD4;
+      --green:  #00E676;
+      --orange: #FF9100;
+      --red:    #FF5252;
+      --teal:   #1DE9B6;
+
+      /* Named gradients */
+      --g-primary:  linear-gradient(135deg, #2979FF 0%, #7C4DFF 100%);
+      --g-cool:     linear-gradient(135deg, #00BCD4 0%, #2979FF 100%);
+      --g-warm:     linear-gradient(135deg, #FF9100 0%, #FF5252 100%);
+      --g-green:    linear-gradient(135deg, #00E676 0%, #00BCD4 100%);
+      --g-purple:   linear-gradient(135deg, #7C4DFF 0%, #E040FB 100%);
+      --g-gold:     linear-gradient(135deg, #FFD740 0%, #FF9100 100%);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* Gradient text utility */
+    .g-text {
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(8, 16, 28, 0.80);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(41, 121, 255, 0.12);
+    }
+
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 120px 40px 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 65% 35%, rgba(41, 121, 255, 0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 45% at 15% 75%, rgba(124, 77, 255, 0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 85% 80%, rgba(0, 188, 212, 0.10) 0%, transparent 55%),
+        radial-gradient(ellipse 35% 30% at 40% 10%, rgba(224, 64, 251, 0.07) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(41,121,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41,121,255,0.06) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: rgba(41,121,255,0.10);
+      border: 1px solid rgba(41,121,255,0.30);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #6EA8FF;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.4); }
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .hero-name .grad {
+      background: linear-gradient(135deg, #6BAAFF 0%, #A78BFA 50%, #F472B6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title {
+      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+      font-weight: 400;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text);
+      max-width: 580px;
+      margin-bottom: 40px;
+      opacity: 0.8;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 60px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--g-primary);
+      color: var(--white);
+      box-shadow: 0 4px 24px rgba(41, 121, 255, 0.40), 0 0 0 1px rgba(124,77,255,0.2);
+    }
+    .btn-primary:hover {
+      box-shadow: 0 6px 36px rgba(41, 121, 255, 0.60), 0 0 0 1px rgba(124,77,255,0.4);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover {
+      background: rgba(41,121,255,0.10);
+      border-color: rgba(41,121,255,0.45);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── SECTIONS ────────────────────────────── */
+    section {
+      padding: 100px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-bottom: 14px;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      margin-bottom: 48px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(41,121,255,0.25), rgba(124,77,255,0.25), transparent);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── ABOUT ───────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-text p { color: var(--muted); margin-bottom: 16px; font-size: 1.02rem; }
+    .about-text strong { color: var(--text); }
+
+    .about-highlights { display: flex; flex-direction: column; gap: 16px; }
+
+    .highlight-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 3px 0 0 3px;
+    }
+    .highlight-card:nth-child(1)::before { background: var(--g-primary); }
+    .highlight-card:nth-child(2)::before { background: var(--g-green); }
+    .highlight-card:nth-child(3)::before { background: var(--g-warm); }
+
+    .highlight-card:hover {
+      transform: translateX(6px);
+      border-color: rgba(41,121,255,0.3);
+      box-shadow: 0 4px 24px rgba(41,121,255,0.08);
+    }
+
+    .highlight-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .icon-blue   { background: linear-gradient(135deg,rgba(41,121,255,0.2),rgba(124,77,255,0.2)); }
+    .icon-green  { background: linear-gradient(135deg,rgba(0,230,118,0.18),rgba(0,188,212,0.18)); }
+    .icon-orange { background: linear-gradient(135deg,rgba(255,145,0,0.18),rgba(255,82,82,0.18)); }
+
+    .highlight-info h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .highlight-info p  { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+    /* ── SKILLS ──────────────────────────────── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--gap);
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+    }
+    .skill-card:nth-child(1)::after { background: var(--g-primary); }
+    .skill-card:nth-child(2)::after { background: var(--g-green); }
+    .skill-card:nth-child(3)::after { background: var(--g-warm); }
+    .skill-card:nth-child(4)::after { background: var(--g-purple); }
+    .skill-card:nth-child(5)::after { background: var(--g-gold); }
+    .skill-card:nth-child(6)::after { background: var(--g-cool); }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3), 0 0 0 1px rgba(41,121,255,0.12);
+    }
+
+    .skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .skill-card-icon {
+      width: 38px; height: 38px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .skill-card h3 {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      padding: 5px 12px;
+      background: rgba(41,121,255,0.08);
+      border: 1px solid rgba(41,121,255,0.18);
+      border-radius: 6px;
+      font-size: 0.79rem;
+      font-weight: 500;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .tag:hover {
+      background: rgba(41,121,255,0.18);
+      border-color: rgba(124,77,255,0.45);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* ── DOMAIN EXPERTISE ────────────────────── */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--gap);
+    }
+
+    .domain-card {
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid transparent;
+    }
+
+    .dc-ott {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, rgba(41,121,255,0.5), rgba(0,188,212,0.3)) border-box;
+    }
+    .dc-iot {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, rgba(0,230,118,0.5), rgba(0,188,212,0.3)) border-box;
+    }
+    .dc-sec {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, rgba(255,82,82,0.5), rgba(224,64,251,0.3)) border-box;
+    }
+    .dc-loc {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  linear-gradient(135deg, rgba(255,145,0,0.5), rgba(255,215,64,0.3)) border-box;
+    }
+
+    /* coloured glow blob inside each card */
+    .domain-card::after {
+      content: '';
+      position: absolute;
+      bottom: -30px; right: -30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.25;
+      transition: opacity 0.3s;
+    }
+    .dc-ott::after { background: #2979FF; }
+    .dc-iot::after { background: #00E676; }
+    .dc-sec::after { background: #FF5252; }
+    .dc-loc::after { background: #FF9100; }
+
+    .domain-card:hover { transform: translateY(-7px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .domain-card:hover::after { opacity: 0.45; }
+
+    .domain-icon { font-size: 2rem; margin-bottom: 16px; display: block; position: relative; z-index: 1; }
+    .domain-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 10px; position: relative; z-index: 1; }
+    .domain-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.6; position: relative; z-index: 1; }
+
+    /* ── EXPERIENCE ──────────────────────────── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #2979FF 0%, #7C4DFF 40%, #E040FB 70%, rgba(30,48,80,0.3) 100%);
+      border-radius: 2px;
+    }
+
+    .timeline-item { position: relative; margin-bottom: 48px; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -38px; top: 10px;
+      width: 14px; height: 14px;
+      background: var(--g-primary);
+      border: 3px solid var(--navy);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(41,121,255,0.20), 0 0 16px rgba(41,121,255,0.5);
+    }
+
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .timeline-card:hover {
+      border-color: rgba(41,121,255,0.3);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    }
+
+    .tc-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .tc-role   { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+
+    .tc-period {
+      font-size: 0.78rem;
+      color: #8AABDA;
+      background: rgba(41,121,255,0.08);
+      border: 1px solid rgba(41,121,255,0.18);
+      padding: 4px 12px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    .tc-company {
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .tc-company a {
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .tc-location { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
+
+    .tc-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .tc-bullets li { font-size: 0.9rem; color: var(--muted); padding-left: 18px; position: relative; line-height: 1.55; }
+    .tc-bullets li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      font-size: 0.7rem;
+      top: 3px;
+      background: var(--g-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .project-block {
+      background: rgba(41,121,255,0.04);
+      border: 1px solid rgba(41,121,255,0.14);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-top: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-block::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--g-primary);
+      border-radius: 3px 0 0 3px;
+    }
+    .project-block + .project-block { margin-top: 10px; }
+
+    .project-name { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .project-tech {
+      font-size: 0.78rem;
+      font-style: italic;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      background: var(--g-cool);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+
+    .app-store-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 12px;
+      padding: 7px 14px;
+      background: rgba(41,121,255,0.08);
+      border: 1px solid rgba(41,121,255,0.20);
+      border-radius: 8px;
+      text-decoration: none;
+      color: #8AABDA;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .app-store-btn:hover {
+      background: rgba(41,121,255,0.18);
+      border-color: rgba(124,77,255,0.50);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+    .app-store-btn svg { flex-shrink: 0; }
+
+    /* ── EDUCATION ───────────────────────────── */
+    .edu-card {
+      background: var(--card);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      max-width: 620px;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(var(--radius) + 1px);
+      background: linear-gradient(135deg, rgba(41,121,255,0.35), rgba(124,77,255,0.20));
+      z-index: -1;
+    }
+    .edu-card:hover { box-shadow: 0 12px 40px rgba(41,121,255,0.12); transform: translateY(-3px); }
+
+    .edu-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, rgba(41,121,255,0.18), rgba(124,77,255,0.18));
+      border: 1px solid rgba(124,77,255,0.25);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .edu-degree { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .edu-field {
+      font-size: 0.9rem; font-weight: 600; margin-bottom: 6px;
+      background: var(--g-primary);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .edu-institution { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; }
+    .edu-year {
+      display: inline-block;
+      font-size: 0.78rem; color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+      padding: 3px 12px; border-radius: 50px;
+    }
+
+    /* ── ACHIEVEMENTS ────────────────────────── */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--gap);
+    }
+
+    .ach-card {
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Each card gets a unique gradient border + soft inner glow */
+    .ach-card:nth-child(1) {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  var(--g-gold) border-box;
+    }
+    .ach-card:nth-child(1)::after { background: #FFD740; }
+
+    .ach-card:nth-child(2) {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  var(--g-primary) border-box;
+    }
+    .ach-card:nth-child(2)::after { background: #2979FF; }
+
+    .ach-card:nth-child(3) {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  var(--g-purple) border-box;
+    }
+    .ach-card:nth-child(3)::after { background: #7C4DFF; }
+
+    .ach-card:nth-child(4) {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  var(--g-green) border-box;
+    }
+    .ach-card:nth-child(4)::after { background: #00E676; }
+
+    .ach-card::after {
+      content: '';
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      filter: blur(35px);
+      opacity: 0.20;
+      transition: opacity 0.3s;
+    }
+    .ach-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+    .ach-card:hover::after { opacity: 0.40; }
+
+    .ach-icon { font-size: 2rem; margin-bottom: 14px; display: block; position: relative; z-index: 1; }
+    .ach-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 8px; position: relative; z-index: 1; }
+    .ach-card p  { font-size: 0.84rem; color: var(--muted); line-height: 1.55; position: relative; z-index: 1; }
+
+    /* ── CERT ────────────────────────────────── */
+    .cert-card {
+      background: linear-gradient(var(--card), var(--card)) padding-box,
+                  var(--g-green) border-box;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      display: flex; gap: 20px; align-items: center;
+      max-width: 620px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .cert-card:hover {
+      box-shadow: 0 10px 36px rgba(0,230,118,0.12);
+      transform: translateY(-3px);
+    }
+
+    .cert-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg,rgba(0,230,118,0.18),rgba(0,188,212,0.18));
+      border: 1px solid rgba(0,230,118,0.30);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+
+    .cert-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .cert-issuer { font-size: 0.85rem; color: var(--muted); }
+    .cert-issuer strong {
+      background: var(--g-green);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── CONTACT ─────────────────────────────── */
+    #contact {
+      max-width: 100%;
+      padding: 80px 40px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 60% 80% at 20% 50%, rgba(41,121,255,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 70% at 80% 50%, rgba(124,77,255,0.08) 0%, transparent 65%),
+        var(--card);
+      border-top: 1px solid rgba(41,121,255,0.15);
+      border-bottom: 1px solid rgba(124,77,255,0.15);
+    }
+
+    .contact-inner { max-width: 1100px; margin: 0 auto; }
+
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+
+    .contact-info h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 800; letter-spacing: -0.5px; margin-bottom: 16px;
+      color: var(--white);
+    }
+    .contact-info p { font-size: 1rem; color: var(--muted); margin-bottom: 32px; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 16px; }
+
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none; color: var(--text);
+      transition: color 0.2s; font-size: 0.95rem;
+    }
+    .contact-link:hover { color: var(--white); }
+
+    .contact-link-icon {
+      width: 42px; height: 42px;
+      background: rgba(41,121,255,0.10);
+      border: 1px solid rgba(41,121,255,0.20);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .contact-link:hover .contact-link-icon {
+      background: rgba(41,121,255,0.22);
+      border-color: rgba(124,77,255,0.40);
+      box-shadow: 0 0 16px rgba(41,121,255,0.20);
+    }
+
+    .contact-langs h3 {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--muted); font-weight: 700; margin-bottom: 16px;
+    }
+
+    .lang-list { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    .lang-tag {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 50px;
+      font-size: 0.88rem; font-weight: 500; color: var(--text);
+      transition: all 0.2s;
+    }
+    .lang-tag:hover {
+      background: rgba(41,121,255,0.12);
+      border-color: rgba(124,77,255,0.35);
+    }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      text-align: center;
+      padding: 32px 40px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(41,121,255,0.08);
+    }
+
+    /* ── ANIMATIONS ──────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 60px; }
+      section { padding: 70px 24px; }
+      #contact { padding: 60px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .tc-header { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .hero-name { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ─────────────────────────────────────────── -->
+<nav>
+  <div class="nav-logo">Viral<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ────────────────────────────────────────── -->
+<section id="hero" style="max-width:100%; padding-left:40px; padding-right:40px;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Available for Senior Roles</div>
+    <h1 class="hero-name">Viral<br/><span class="grad">Chauhan</span></h1>
+    <p class="hero-title">iOS Tech Lead &amp; Team Lead</p>
+    <p class="hero-sub">
+      12+ years crafting high-performance mobile experiences — from live-streaming
+      platforms reaching millions, to IoT hardware companions and enterprise security systems.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:viral7chauhan@yahoo.com" class="btn btn-primary">
+        ✉ Get in Touch
+      </a>
+      <a href="https://linkedin.com/in/viral7chauhan" target="_blank" rel="noopener" class="btn btn-outline">
+        ↗ LinkedIn Profile
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── ABOUT ───────────────────────────────────────── -->
+<section id="about">
+  <p class="section-label fade-in">Who I Am</p>
+  <h2 class="section-title fade-in">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>
+        I'm an <strong>iOS Technical Lead &amp; Team Lead</strong> with over 12 years of hands-on
+        experience in architectural design, team mentorship, and full-lifecycle mobile engineering.
+      </p>
+      <p>
+        Currently at <strong>Zee Entertainment</strong>, I lead the engineering strategy for the
+        Zee5 Apple TV and iOS applications — one of India's largest OTT platforms — overseeing
+        live sports streaming, DRM protection, and modular architecture.
+      </p>
+      <p>
+        Before that I built IoT Bluetooth hardware companion apps, secure BLE Mesh industrial
+        systems, enterprise surveillance platforms, and cross-platform mobile solutions for
+        global clients including Schneider Electric.
+      </p>
+      <p>
+        I speak <strong>Swift</strong> fluently and think in <strong>MVVM / VIPER</strong>
+        — and I bring the same structured thinking to managing teams and shipping reliable products.
+      </p>
+    </div>
+    <div class="about-highlights fade-in">
+      <div class="highlight-card">
+        <div class="highlight-icon icon-blue">🏗️</div>
+        <div class="highlight-info">
+          <h4>Architecture</h4>
+          <p>Expert in MVVM, VIPER &amp; Design Systems across iOS, tvOS, and watchOS platforms, ensuring modular reusability and stable code layers.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon icon-green">👥</div>
+        <div class="highlight-info">
+          <h4>Team Leadership</h4>
+          <p>Proven capability managing engineering squads, aligning with QA, and steering technical execution for high-stakes live operations.</p>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon icon-orange">🤖</div>
+        <div class="highlight-info">
+          <h4>AI-Augmented Engineering</h4>
+          <p>Adept at modernising pipelines via automated CI/CD tools and leveraging AI-assisted workflows (Claude, ChatGPT, GitHub Copilot).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SKILLS ──────────────────────────────────────── -->
+<section id="skills">
+  <p class="section-label fade-in">What I Know</p>
+  <h2 class="section-title fade-in">Technical Skills</h2>
+  <div class="skills-grid">
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(10,132,255,0.12)">💻</div>
+        <h3>Languages</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Swift</span>
+        <span class="tag">Objective-C</span>
+        <span class="tag">C#</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(48,209,88,0.12)">📦</div>
+        <h3>Frameworks</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">UIKit</span>
+        <span class="tag">SwiftUI</span>
+        <span class="tag">Combine</span>
+        <span class="tag">XCTest</span>
+        <span class="tag">GraphQL</span>
+        <span class="tag">CoreData</span>
+        <span class="tag">RESTful APIs</span>
+        <span class="tag">NoSQL</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(255,159,10,0.12)">📱</div>
+        <h3>Platforms</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">iOS</span>
+        <span class="tag">watchOS</span>
+        <span class="tag">tvOS</span>
+        <span class="tag">Android</span>
+        <span class="tag">Xamarin</span>
+        <span class="tag">Flutter</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(255,69,58,0.12)">🛠</div>
+        <h3>Tools &amp; DevOps</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Xcode</span>
+        <span class="tag">Git</span>
+        <span class="tag">Jira</span>
+        <span class="tag">Braze</span>
+        <span class="tag">Azure DevOps</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">Fastlane</span>
+        <span class="tag">SwiftLint</span>
+        <span class="tag">HockeyApp</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(94,92,230,0.12)">🤖</div>
+        <h3>AI Integration</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Claude</span>
+        <span class="tag">ChatGPT</span>
+        <span class="tag">GitHub Copilot</span>
+      </div>
+    </div>
+
+    <div class="skill-card fade-in">
+      <div class="skill-card-header">
+        <div class="skill-card-icon" style="background:rgba(90,200,250,0.12)">📊</div>
+        <h3>Analytics</h3>
+      </div>
+      <div class="tags">
+        <span class="tag">Conviva</span>
+        <span class="tag">MixPanel</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── DOMAIN EXPERTISE ────────────────────────────── -->
+<section id="expertise">
+  <p class="section-label fade-in">Specialisations</p>
+  <h2 class="section-title fade-in">Domain Expertise</h2>
+  <div class="domain-grid">
+
+    <div class="domain-card dc-ott fade-in">
+      <span class="domain-icon">📺</span>
+      <h3>OTT &amp; Broadcasting</h3>
+      <p>Media Streaming, Live Operations, DRM Protection, HLS Streams, Dynamic Ad Insertion (IMA SDK), AVPlayer</p>
+    </div>
+
+    <div class="domain-card dc-iot fade-in">
+      <span class="domain-icon">🔵</span>
+      <h3>IoT &amp; Hardware</h3>
+      <p>CoreBluetooth, BLE Mesh Topologies, Smart Hardware Interfacing, Peripheral Tracking Systems</p>
+    </div>
+
+    <div class="domain-card dc-sec fade-in">
+      <span class="domain-icon">🔒</span>
+      <h3>Enterprise Security</h3>
+      <p>Remote Video Surveillance, Multi-threaded Decoders, Socket Layer APIs, Privacy Frameworks (OneTrust)</p>
+    </div>
+
+    <div class="domain-card dc-loc fade-in">
+      <span class="domain-icon">📍</span>
+      <h3>Location Services</h3>
+      <p>Geofencing, Offline Mapping Engines, ArcGIS Packages (.mmpk), Geolocation Tracking</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EXPERIENCE ──────────────────────────────────── -->
+<section id="experience">
+  <p class="section-label fade-in">Work History</p>
+  <h2 class="section-title fade-in">Professional Experience</h2>
+
+  <div class="timeline">
+
+    <!-- Zee5 -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Team Lead / iOS Tech Lead</span>
+          <span class="tc-period">Jan 2023 — Present</span>
+        </div>
+        <div class="tc-company"><a href="https://www.zee5.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Zee Entertainment ↗</a></div>
+        <div class="tc-location">📍 Bangalore, India &nbsp;·&nbsp; Previously Senior Software Engineer (Promoted)</div>
+        <ul class="tc-bullets">
+          <li>Lead the engineering and architecture strategy for Zee5 Apple TV and iOS applications.</li>
+          <li>Define core architecture principles ensuring modular reusability, fluid scalability, and stable code layers.</li>
+          <li>Spearheaded integration of the OneTrust SDK on Apple TV for compliance management.</li>
+          <li>Managed core video delivery tech for live streaming sports events, including the UPKL Tournament dry runs.</li>
+          <li>Architected the Apple TV Kids Profile features alongside QA teams for automated validation runs.</li>
+          <li>Drove codebase optimisation tracks, fixing multiple legacy issues during corporate Bugathons.</li>
+        </ul>
+        <div class="project-block">
+          <div class="project-name">Project: Zee5 (iOS / Apple TV)</div>
+          <div class="project-tech">tvOS · AVPlayer · HLS · DRM Protection · IMA SDK · MixPanel · Conviva · Compositional Layout</div>
+          <div class="project-desc">Provides a seamless video streaming experience playing protected HLS streams. Features multi-language audio toggles, contextual subtitles, advanced search, and single-click user login via a multi-peer connectivity protocol layer.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="https://apps.apple.com/us/app/zee5-movies-web-series-shows/id743691886" target="_blank" rel="noopener" class="app-store-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              iOS App
+            </a>
+            <a href="https://apps.apple.com/us/app/zee5-movies-shows-live-tv/id1347955889" target="_blank" rel="noopener" class="app-store-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              Apple TV App
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- InvariaTech -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Senior Software Engineer</span>
+          <span class="tc-period">May 2020 — Dec 2022</span>
+        </div>
+        <div class="tc-company"><a href="https://www.invariatech.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">InvariaTech ↗</a></div>
+        <div class="tc-location">📍 Bangalore, India</div>
+        <ul class="tc-bullets">
+          <li>Managed an engineering squad delivering consumer IoT Bluetooth hardware companion software.</li>
+          <li>Built interactive iOS layouts and standalone companion watchOS apps using SwiftUI and Combine.</li>
+          <li>Engineered CI/CD pipeline automation workflows leveraging Fastlane and GitHub Actions.</li>
+        </ul>
+        <div class="project-block">
+          <div class="project-name">Project: Willow Pumps</div>
+          <div class="project-tech">BLE · MVVM · Unit Test · Braze · Fastlane · Apple Watch App · SwiftUI · Firebase</div>
+          <div class="project-desc">A hands-free smart pump companion suite allowing live hardware state controls (play, pause, suction adjustments) via CoreBluetooth alongside cloud engagement matrices handled by Braze.</div>
+          <a href="https://apps.apple.com/us/app/willow/id1579004074" target="_blank" rel="noopener" class="app-store-btn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            View on App Store
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Datamatics / Schneider -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Senior Software Engineer (Mobile)</span>
+          <span class="tc-period">Jun 2019 — May 2020</span>
+        </div>
+        <div class="tc-company">
+          <a href="https://www.datamatics.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Datamatics Pvt Ltd ↗</a>
+          &nbsp;/&nbsp;
+          <a href="https://www.se.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Schneider Electric ↗</a>
+        </div>
+        <div class="tc-location">📍 Bangalore, India</div>
+        <ul class="tc-bullets">
+          <li>Partnered with client Schneider Electric to build secure Bluetooth Mesh industrial app environments.</li>
+        </ul>
+        <div class="project-block">
+          <div class="project-name">Project: BLE Mesh App</div>
+          <div class="project-tech">BLE Mesh · Silicon Labs SDK · VIPER · Jenkins · Xamarin.Forms · OAuth2</div>
+          <div class="project-desc">Developed many-to-many communication systems over Bluetooth SIG profiles for industrial control.</div>
+        </div>
+        <div class="project-block">
+          <div class="project-name">Project: Map App</div>
+          <div class="project-tech">ArcGIS Runtime SDK · Offline Mapping · VIPER</div>
+          <div class="project-desc">Delivered offline vector GIS map tracking with building floor-switching via ArcGIS .mmpk packages.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Capgemini -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Associate Consultant</span>
+          <span class="tc-period">Aug 2017 — May 2019</span>
+        </div>
+        <div class="tc-company"><a href="https://www.capgemini.com/in-en/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Capgemini India ↗</a></div>
+        <div class="tc-location">📍 Bangalore, India</div>
+        <ul class="tc-bullets">
+          <li>Translated enterprise requirements into robust cross-platform software backed by Microsoft Azure.</li>
+          <li>Architected and launched tailored native iOS applications for in-house enterprise operations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Matrix Comsec -->
+    <div class="timeline-item fade-in">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Senior Software Engineer</span>
+          <span class="tc-period">Oct 2014 — Aug 2017</span>
+        </div>
+        <div class="tc-company"><a href="https://www.matrixcomsec.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Matrix Comsec Pvt Ltd ↗</a></div>
+        <div class="tc-location">📍 Vadodara, India</div>
+        <ul class="tc-bullets">
+          <li>Architected surveillance and tracking applications for enterprise customers on iOS and Android.</li>
+        </ul>
+        <div class="project-block">
+          <div class="project-name">Projects: Cosec APTA &amp; Satatya Vision/Sight</div>
+          <div class="project-tech">Xamarin · Sockets · FFMpeg · Multithreading · OpenGL · NoSQL · Cache · Location Engine</div>
+          <div class="project-desc">Built automated geolocation attendance systems and real-time video surveillance layers processing concurrent IP camera streams through custom multi-threaded FFMpeg decoding configurations.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <a href="https://apps.apple.com/us/app/cosec-apta/id978241784" target="_blank" rel="noopener" class="app-store-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              COSEC APTA
+            </a>
+            <a href="https://apps.apple.com/us/app/satatya-sight/id570155344" target="_blank" rel="noopener" class="app-store-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              SATATYA Sight
+            </a>
+            <a href="https://apps.apple.com/us/app/satatya-vision/id1046426806" target="_blank" rel="noopener" class="app-store-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              SATATYA Vision
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Webmyne -->
+    <div class="timeline-item fade-in" style="margin-bottom:0">
+      <div class="timeline-card">
+        <div class="tc-header">
+          <span class="tc-role">Junior iPhone Developer</span>
+          <span class="tc-period">Apr 2014 — Oct 2014</span>
+        </div>
+        <div class="tc-company"><a href="https://www.webmyne.com" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Webmyne Systems ↗</a></div>
+        <div class="tc-location">📍 Vadodara, India</div>
+        <ul class="tc-bullets">
+          <li>Shipped applications from zero to launch, strengthening foundational MVC patterns and CoreData memory safety.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── EDUCATION ───────────────────────────────────── -->
+<section id="education">
+  <p class="section-label fade-in">Academic Background</p>
+  <h2 class="section-title fade-in">Education</h2>
+
+  <div class="edu-card fade-in" style="margin-bottom: 32px;">
+    <div class="edu-icon">🎓</div>
+    <div>
+      <div class="edu-degree">Bachelor of Engineering</div>
+      <div class="edu-field">Information Technology</div>
+      <div class="edu-institution">Sardar Vallabhbhai Patel Institute of Technology — GTU</div>
+      <span class="edu-year">2009 — 2013</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem; font-weight:700; color:var(--white); margin-bottom:20px; margin-top: 48px;">Training &amp; Certifications</h3>
+  <div class="cert-card fade-in">
+    <div class="cert-icon">✅</div>
+    <div>
+      <div class="cert-name">Essential Developer Certification in Design Systems</div>
+      <div class="cert-issuer">Structural system modularity architectures · <strong>Essential Developer</strong> · Jun 2024</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── ACHIEVEMENTS ────────────────────────────────── -->
+<section id="achievements">
+  <p class="section-label fade-in">Recognition &amp; Awards</p>
+  <h2 class="section-title fade-in">Honors &amp; Achievements</h2>
+
+  <div class="achievements-grid">
+
+    <div class="ach-card fade-in">
+      <span class="ach-icon">🏆</span>
+      <h3>Tech Innovation Award</h3>
+      <p>Awarded by Zee Entertainment for outstanding structural engineering contributions to streaming architecture platforms. <strong style="color:var(--blue);">Jan 2026</strong></p>
+    </div>
+
+    <div class="ach-card fade-in">
+      <span class="ach-icon">🥇</span>
+      <h3>51st National School Games Championship</h3>
+      <p>Earned <strong style="color:var(--orange);">two Gold Medals</strong> in competitive state Yogasan at Ahmedabad.</p>
+    </div>
+
+    <div class="ach-card fade-in">
+      <span class="ach-icon">🥇🥈</span>
+      <h3>50th National School Games Championship</h3>
+      <p>Won <strong style="color:var(--orange);">one Gold &amp; one Silver Medal</strong> in Yogasan at Mahesana.</p>
+    </div>
+
+    <div class="ach-card fade-in">
+      <span class="ach-icon">⭐</span>
+      <h3>Shree Jaydeepsinhji Award</h3>
+      <p>Declared <strong>Outstanding Sports Person of the Year 2006–07</strong> in Yogasan by the Government of Gujarat.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── CONTACT ─────────────────────────────────────── -->
+<div id="contact">
+  <div class="contact-inner">
+    <p class="section-label fade-in">Let's Connect</p>
+    <div class="contact-grid">
+      <div class="contact-info fade-in">
+        <h2>Ready to Build<br/>Something Great?</h2>
+        <p>Whether it's a leadership role, a complex iOS challenge, or a streaming/IoT architecture discussion — I'd love to hear from you.</p>
+        <div class="contact-links">
+          <a href="mailto:viral7chauhan@yahoo.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            viral7chauhan@yahoo.com
+          </a>
+          <a href="tel:+919662319848" class="contact-link">
+            <div class="contact-link-icon">📞</div>
+            +91 96623 19848
+          </a>
+          <a href="https://linkedin.com/in/viral7chauhan" target="_blank" rel="noopener" class="contact-link">
+            <div class="contact-link-icon">🔗</div>
+            linkedin.com/in/viral7chauhan
+          </a>
+          <a class="contact-link" style="pointer-events:none;">
+            <div class="contact-link-icon">📍</div>
+            Bangalore, India
+          </a>
+        </div>
+      </div>
+      <div class="contact-langs fade-in">
+        <h3>Languages Spoken</h3>
+        <div class="lang-list">
+          <span class="lang-tag">🇬🇧 English</span>
+          <span class="lang-tag">🇮🇳 Hindi</span>
+          <span class="lang-tag">🇮🇳 Gujarati (Native)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ──────────────────────────────────────── -->
+<footer>
+  <p>© 2026 Viral Chauhan · iOS Tech Lead &amp; Team Lead · Bangalore, India</p>
+</footer>
+
+<!-- ── JS: Intersection Observer animations ────────── -->
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 80}ms`;
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
