@@ -423,7 +423,6 @@
                   linear-gradient(135deg, rgba(255,145,0,0.5), rgba(255,215,64,0.3)) border-box;
     }
 
-    /* coloured glow blob inside each card */
     .domain-card::after {
       content: '';
       position: absolute;
@@ -646,7 +645,6 @@
       overflow: hidden;
     }
 
-    /* Each card gets a unique gradient border + soft inner glow */
     .ach-card:nth-child(1) {
       background: linear-gradient(var(--card), var(--card)) padding-box,
                   var(--g-gold) border-box;
@@ -853,7 +851,11 @@
       platforms reaching millions, to IoT hardware companions and enterprise security systems.
     </p>
     <div class="hero-actions">
-      <a href="mailto:viral7chauhan@yahoo.com" class="btn btn-primary">
+      <!-- Added Resume Download Button Here -->
+      <a href="Viral_Chauhan_Resume.pdf" download="resume.pdf" class="btn btn-primary">
+        📄 Download Resume
+      </a>
+      <a href="mailto:viral7chauhan@yahoo.com" class="btn btn-outline">
         ✉ Get in Touch
       </a>
       <a href="https://linkedin.com/in/viral7chauhan" target="_blank" rel="noopener" class="btn btn-outline">
